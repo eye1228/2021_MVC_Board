@@ -33,4 +33,35 @@
 	<select id="onelist" parameterType="String" resultType="com.ict.db.VO">
 		select * from board where idx = #{idx}
 	</select>
+	
+	<!-- 원글 삭제 -->
+	<delete id="delete" parameterType="com.ict.db.VO">
+		delete from board where idx = #{idx}
+	</delete>
+	
+	<!-- 댓글 삽입 전에 lev를 업데이트 하자 -->
+	<!-- 원글과 같은그룹이면서 lev이 같거나 크면 증가 -->
+	<!-- 원글의 첫번재 댓글은 업데이트가 되지 않는다. -->
+	<update id="levup" parameterType="Map">
+		update board set lev = lev + 1 where groups=#{groups} and lev >= #{lev}
+	</update>
+	
+	<!-- 댓글 삽입 -->
+	<insert id="ans_ins" parameterType="com.ict.db.VO">
+		insert into board values(board_seq.nextval, #{writer}, #{title}, #{content}, #{pwd}, 0, #{groups}, #{step}, #{lev}, sysdate, #{file_name})
+	</insert>
+	
+	<!-- 업데이트 -->
+	<update id="update" parameterType="com.ict.db.VO">
+		update board set writer=#{writer}, title=#{title}, content=#{content}, file_name=#{file_name} where idx=#{idx}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

@@ -3,12 +3,10 @@ package com.ict.model;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UpdateCommand implements Command {
-
+public class UpdateCommand implements Command{
 	@Override
 	public String exec(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		return null;
+		request.setAttribute("cPage", request.getParameter("cPage"));
+		return "view/update.jsp";
 	}
-
 }

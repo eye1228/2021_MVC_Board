@@ -6,27 +6,24 @@ import javax.servlet.http.HttpServletResponse;
 import com.ict.db.DAO;
 import com.ict.db.VO;
 
-public class OneListCommand implements Command {
-
+public class OneListCommand implements Command{
 	@Override
 	public String exec(HttpServletRequest request, HttpServletResponse response) {
 		String idx = request.getParameter("idx");
 		String cPage = request.getParameter("cPage");
 		
-		//È÷Æ®¼ö ¾÷µ¥ÀÌÆ®
+		// íˆíŠ¸ìˆ˜ ì—…ë°ì´íŠ¸ 
 		int result = DAO.getHitUp(idx);
 		
-		//»ó¼¼ º¸±â
+		// ìƒì„¸ë³´ê¸°
 		VO vo = DAO.getOneList(idx);
 		
-		//¼öÁ¤°ú »èÁ¦¸¦ À§ÇØ¼­ sessionÀúÀå
-		request.getSession().setAttribute("vo", vo);
-		
-		//cPageµµ ÀúÀå
+		// ìˆ˜ì •ê³¼ ì‚­ì œë¥¼ ìœ„í•´ì„œ sessionì— ì €ì¥
+		 request.getSession().setAttribute("vo", vo);
+		 
+		// cPageë„ ì €ì¥
 		request.setAttribute("cPage", cPage);
-		
 		
 		return "view/onelist.jsp";
 	}
-
 }

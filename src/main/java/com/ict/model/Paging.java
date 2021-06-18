@@ -1,22 +1,22 @@
 package com.ict.model;
 
 public class Paging {
-	// ÆäÀÌÁö ±â¹ı : ÀüÃ¼ Á¤º¸¿¡¼­ ¿øÇÏ´Â ÀÏºÎºĞ¸¸ °¡Á®¿À±â 
-	//               ±× ÀÏºÎºĞÀÌ¶õ ÇØ´ç ÆäÀÌÁö¿¡ ½ÃÀÛ¹øÈ£¿Í ³¡¹øÈ£, ½ÃÀÛºí·Ï°ú ³¡ºí·ÏÀ» ¸»ÇÑ´Ù.
-	//  Áï ½ÇÁ¦·Î ±¸ÇÏ°íÀÚ ÇÏ´Â °ÍÀº ½ÃÀÛ¹øÈ£, ³¡¹øÈ£, ½ÃÀÛºí·Ï, ³¡ºí·ÏÀÌ´Ù.
+	// í˜ì´ì§€ ê¸°ë²• : ì „ì²´ ì •ë³´ì—ì„œ ì›í•˜ëŠ” ì¼ë¶€ë¶„ë§Œ ê°€ì ¸ì˜¤ê¸° 
+	//               ê·¸ ì¼ë¶€ë¶„ì´ë€ í•´ë‹¹ í˜ì´ì§€ì— ì‹œì‘ë²ˆí˜¸ì™€ ëë²ˆí˜¸, ì‹œì‘ë¸”ë¡ê³¼ ëë¸”ë¡ì„ ë§í•œë‹¤.
+	//  ì¦‰ ì‹¤ì œë¡œ êµ¬í•˜ê³ ì í•˜ëŠ” ê²ƒì€ ì‹œì‘ë²ˆí˜¸, ëë²ˆí˜¸, ì‹œì‘ë¸”ë¡, ëë¸”ë¡ì´ë‹¤.
 	
-	private int nowPage = 1 ;      // ÇöÀç ÆäÀÌÁö 
-	private int nowBlock = 1 ;     // ÇöÀç ºí·Ï  
-	private int totalRecord = 0 ;  // ÀüÃ¼ °Ô½Ã¹°ÀÇ ¼ö
-	private int totalPage = 0 ;    // ÀüÃ¼ ÆäÀÌÁöÀÇ ¼ö
-	private int totalBlock = 0 ;   // ÀüÃ¼ ºí·ÏÀÇ ¼ö
-	private int numPerPage = 5 ;   // ÇÑ ÆäÀÌÁö¾È¿¡ Á¸ÀçÇÏ´Â ÁÙÀÇ ¼ö(¿ø±Û ÀÇ ¼ö)
-	private int pagePerBlock = 5;  // ÇÑ ºí·Ï¾È¿¡ Á¸ÀçÇÏ´Â ÆäÀÌÁöÀÇ ¼ö
+	private int nowPage = 1 ;      // í˜„ì¬ í˜ì´ì§€ 
+	private int nowBlock = 1 ;     // í˜„ì¬ ë¸”ë¡  
+	private int totalRecord = 0 ;  // ì „ì²´ ê²Œì‹œë¬¼ì˜ ìˆ˜
+	private int totalPage = 0 ;    // ì „ì²´ í˜ì´ì§€ì˜ ìˆ˜
+	private int totalBlock = 0 ;   // ì „ì²´ ë¸”ë¡ì˜ ìˆ˜
+	private int numPerPage = 5 ;   // í•œ í˜ì´ì§€ì•ˆì— ì¡´ì¬í•˜ëŠ” ì¤„ì˜ ìˆ˜(ì›ê¸€ ì˜ ìˆ˜)
+	private int pagePerBlock = 2;  // í•œ ë¸”ë¡ì•ˆì— ì¡´ì¬í•˜ëŠ” í˜ì´ì§€ì˜ ìˆ˜
 	
-	private int begin = 0 ;        // ½ÃÀÛÆäÀÌÁö 
-	private int end = 0 ;          // ³¡ÆäÀÌÁö
-	private int beginBlock = 0 ;   // ½ÃÀÛºí·Ï
-	private int endBlock = 0 ;     // ³¡ºí·Ï
+	private int begin = 0 ;        // ì‹œì‘í˜ì´ì§€ 
+	private int end = 0 ;          // ëí˜ì´ì§€
+	private int beginBlock = 0 ;   // ì‹œì‘ë¸”ë¡
+	private int endBlock = 0 ;     // ëë¸”ë¡
 	
 	
 	public int getNowPage() {

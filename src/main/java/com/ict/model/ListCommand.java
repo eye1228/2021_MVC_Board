@@ -8,47 +8,56 @@ import javax.servlet.http.HttpServletResponse;
 import com.ict.db.DAO;
 import com.ict.db.VO;
 
-public class ListCommand implements Command {
+public class ListCommand implements Command{
 	@Override
 	public String exec(HttpServletRequest request, HttpServletResponse response) {
 		Paging pvo = new Paging();
-		// 1. ÀüÃ¼ °Ô½Ã¹°ÀÇ ¼ö
+		
+		// 1. ì „ì²´ ê²Œì‹œë¬¼ì˜ ìˆ˜
 		int su = DAO.getCount();
 		pvo.setTotalRecord(su);
-
-		// 2. ÀüÃ¼ °Ô½Ã¹°ÀÇ ¼ö¸¦ °¡Áö°í ÀüÃ¼ ÆäÀÌÁöÀÇ ¼ö¸¦ ±¸ÇÑ´Ù.
-		pvo.setTotalPage(pvo.getTotalRecord() / pvo.getNumPerPage());
-
-		// ÁÖÀÇ) ³ª´« ³ª¸ÓÁö°¡ Á¸ÀçÇÏ¸é ÀüÃ¼ ÆäÀÌÁö¿¡¼­ ÇÑ ÆäÀÌÁö Ãß°¡
-		if (pvo.getTotalRecord() % pvo.getNumPerPage() != 0) {
-			pvo.setTotalPage(pvo.getTotalPage() + 1);
+		
+		// 2. ì „ì²´ ê²Œì‹œë¬¼ì˜ ìˆ˜ë¥¼ ê°€ì§€ê³  ì „ì²´ í˜ì´ì§€ì˜ ìˆ˜ë¥¼ êµ¬í•œë‹¤.
+		pvo.setTotalPage(pvo.getTotalRecord()/pvo.getNumPerPage());
+		
+		// ì£¼ì˜) ë‚˜ëˆˆ ë‚˜ë¨¸ì§€ê°€ ì¡´ì¬í•˜ë©´ ì „ì²´ í˜ì´ì§€ì—ì„œ í•œ í˜ì´ì§€ ì¶”ê°€ 
+		if(pvo.getTotalRecord()%pvo.getNumPerPage() !=0) {
+			pvo.setTotalPage(pvo.getTotalPage()+1);
 		}
-		// 3. ÇöÀç ÆäÀÌÁö ±¸ÇÏ±â
+		// 3. í˜„ì¬ í˜ì´ì§€ êµ¬í•˜ê¸° 
 		String cPage = request.getParameter("cPage");
-		if (cPage == null)
-			cPage = "1";
+		if(cPage=="") cPage = "1";
 		pvo.setNowPage(Integer.parseInt(cPage));
-
-		// 4. ½ÃÀÛ¹øÈ£, ³¡¹øÈ£ ±¸ÇÏ±â
-		pvo.setBegin((pvo.getNowPage() - 1) * pvo.getNumPerPage() + 1);
-		pvo.setEnd((pvo.getBegin() - 1) + pvo.getNumPerPage());
-
-		// DBÃ³¸®
+		
+		// 4. ì‹œì‘ë²ˆí˜¸, ëë²ˆí˜¸ êµ¬í•˜ê¸° 
+		pvo.setBegin((pvo.getNowPage()-1)*pvo.getNumPerPage()+1);
+	    pvo.setEnd((pvo.getBegin()-1)+pvo.getNumPerPage());
+		
+	   	// DBì²˜ë¦¬
 		List<VO> list = DAO.getList(pvo.getBegin(), pvo.getEnd());
-
-		// 5. ½ÃÀÛºí·Ï, ³¡ºí·Ï ±¸ÇÏ±â(list.jsp¿¡¼­ ÆäÀÌÂ¡±â¹ı)
-		pvo.setBeginBlock((int) (pvo.getNowPage() - 1) / pvo.getPagePerBlock() * pvo.getPagePerBlock() + 1);
-		pvo.setEndBlock(pvo.getBeginBlock() + pvo.getPagePerBlock() - 1);
-
-		// ÁÖÀÇ) endBlockÀÌ totalPageº¸´Ù Å¬¼ö ÀÖ´Ù.
-		if (pvo.getEndBlock() > pvo.getTotalPage()) {
+		
+		// 5. ì‹œì‘ë¸”ë¡, ëë¸”ë¡ êµ¬í•˜ê¸°(list.jspì—ì„œ í˜ì´ì§•ê¸°ë²•) 
+		pvo.setBeginBlock((int)(pvo.getNowPage()-1)/pvo.getPagePerBlock() * pvo.getPagePerBlock()+1);
+		pvo.setEndBlock(pvo.getBeginBlock()+pvo.getPagePerBlock()-1);
+		
+		// ì£¼ì˜) endBlockì´ totalPageë³´ë‹¤ í´ìˆ˜ ìˆë‹¤.
+		if(pvo.getEndBlock() > pvo.getTotalPage()) {
 			pvo.setEndBlock(pvo.getTotalPage());
 		}
-
-		// 6. reqeust¿¡ ÀúÀå
+		
+		// 6. reqeustì— ì €ì¥
 		request.setAttribute("list", list);
 		request.setAttribute("pvo", pvo);
-
+		request.setAttribute("cPage", cPage);
+		
 		return "view/list.jsp";
 	}
 }
+
+
+
+
+
+
+
+

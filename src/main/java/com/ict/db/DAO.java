@@ -50,4 +50,35 @@ public class DAO {
 		vo = getSession().selectOne("onelist", idx);
 		return vo;
 	}
+
+	public static int getDelete(VO vo) {
+		int result = 0;
+		result = getSession().delete("delete", vo);
+		ss.commit();		
+		return result;
+	}
+	//댓글 삽입 전에 lev를 업데이트 하자
+	public static int getUp_lev(Map map) {
+		int result = 0 ;
+		result = getSession().update("levup", map);
+		ss.commit();
+		return result;
+	}
+
+	//댓글 삽입
+	public static int getAnsInsert(VO ins_vo) {
+		System.out.println("DAO까진 왔어");
+		int result = 0;
+		result = getSession().insert("ans_ins", ins_vo);
+		ss.commit();
+		
+		return result;
+	}
+
+	public static int getUpdate(VO vo2) {
+		int result = 0;
+		result = getSession().update("update", vo2);		
+		ss.commit();
+		return result;
+	}
 }

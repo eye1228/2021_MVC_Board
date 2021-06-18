@@ -8,13 +8,13 @@ import com.ict.db.VO;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-public class WriteOKCommand implements Command {
-
+public class WriteOKCommand implements Command{
 	@Override
 	public String exec(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			String path = request.getServletContext().getRealPath("/upload");
-			MultipartRequest mr = new MultipartRequest(request, path, 100*1024*1024, "utf-8", new DefaultFileRenamePolicy());
+			MultipartRequest mr = 
+					new MultipartRequest(request, path, 100*1024*1024, "utf-8", new DefaultFileRenamePolicy());
 			VO vo = new VO();
 			
 			vo.setWriter(mr.getParameter("writer"));
@@ -27,12 +27,13 @@ public class WriteOKCommand implements Command {
 				vo.setFile_name("");
 			}
 			int result = DAO.getInsert(vo);
+			String cPage = mr.getParameter("cPage");
 			if(result>0){
-				return "MyController?cmd=list";
+				return "MyController?cmd=list&cPage="+cPage;
 			}
 		} catch (Exception e) {
+			System.out.println(e);
 		}
 		return null;
 	}
-
 }

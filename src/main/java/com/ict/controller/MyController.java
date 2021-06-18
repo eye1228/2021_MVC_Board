@@ -10,11 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ict.model.Ans_writeCommand;
+import com.ict.model.Ans_writeOKCommand;
 import com.ict.model.Command;
 import com.ict.model.DeleteCommand;
+import com.ict.model.DeleteOKCommand;
 import com.ict.model.ListCommand;
 import com.ict.model.OneListCommand;
 import com.ict.model.UpdateCommand;
+import com.ict.model.UpdateOKCommand;
 import com.ict.model.WriteCommand;
 import com.ict.model.WriteOKCommand;
 
@@ -46,10 +49,16 @@ public class MyController extends HttpServlet {
 			comm = new OneListCommand();
 		}else if(cmd.equalsIgnoreCase("delete")) {
 			comm = new DeleteCommand();
+		}else if(cmd.equalsIgnoreCase("delete_ok")) {
+			comm = new DeleteOKCommand();
 		}else if(cmd.equalsIgnoreCase("update")) {
 			comm = new UpdateCommand();
+		}else if(cmd.equalsIgnoreCase("update_ok")) {
+			comm = new UpdateOKCommand();
 		}else if(cmd.equalsIgnoreCase("ans_write")) {
 			comm = new Ans_writeCommand();
+		}else if(cmd.equalsIgnoreCase("ans_write_ok")) {
+			comm = new Ans_writeOKCommand();
 		}
 		
 		String path = comm.exec(request, response);

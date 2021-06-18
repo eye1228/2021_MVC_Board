@@ -23,37 +23,38 @@ h2{text-align: center;}
 table{width: 800px; margin:10px auto;}
 input{padding: 5px;}
 </style>
+</style>
 <script type="text/javascript">
 	function list_go(f) {
 		f.action="${pageContext.request.contextPath}/MyController?cmd=list&cPage=${cPage}";
 		f.submit();
 	}
-	function ans_write(f) {
-		f.action="${pageContext.request.contextPath}/MyController?cmd=ans_write&cPage=${cPage}";
-		f.submit();
+	function update_ok(f) {
+		// 비밀번호체크
+		if("${vo.pwd}"==f.pwd.value){
+			f.action="${pageContext.request.contextPath}/MyController?cmd=update_ok";
+			f.submit();
+		}else{
+			alert("비밀번호틀림");
+			f.pwd.value="";
+			f.pwd.focus();
+			return;
+		}
 	}
-	function update_go(f) {
-		f.action="${pageContext.request.contextPath}/MyController?cmd=update&cPage=${cPage}";
-		f.submit();
-	}
-	function delete_go(f) {
-		f.action="${pageContext.request.contextPath}/MyController?cmd=delete&cPage=${cPage}";
-		f.submit();
-}
 </script>
 </head>
 <body>
-	<h2>Board 상세보기</h2>
+	<h2>Board 글 수정</h2>
 	<form  method="post" enctype="multipart/form-data">
 		<table width="700">
 		<tbody>
 			<tr>
 				<th>작성자</th>
-				<td>${vo.writer }</td>
+				<td align="left"><input type="text" name="writer" value="${vo.writer }"></td>
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td>${vo.title }</td>
+				<td align="left"> <input type="text" name="title" value="${vo.title }"></td>
 			</tr>
 			<tr>
 				<th>내용</th>
@@ -64,21 +65,29 @@ input{padding: 5px;}
 			</tr>
 			<tr>
 				<th>첨부파일</th>
-				<c:choose>
-					<c:when test="${!empty vo.file_name }">
-						<td style = "text-align: center;">
-							<img src="upload/${vo.file_name }" style="width: 100px;"><br>
-							<a href="view/download.jsp?path=upload&file_name=${vo.file_name}">${vo.file_name }</a>
-						</td>
-					</c:when>
-				</c:choose>
+				<td>
+					<c:choose>
+							<c:when test="${empty vo.file_name }">
+								<input type="file" name="file_name">이전파일없음
+								<input type="hidden" name="old_file_name" value="">
+							</c:when>
+							<c:otherwise>
+								<input type="file" name="file_name"> 이전파일(${vo.file_name})
+								<input type="hidden" name="old_file_name" value="${vo.file_name}">
+							</c:otherwise>
+						</c:choose>
+				</td>
+			</tr>
+			<tr>
+				<th>비밀번호</th>
+				<td align="left"><input type="password" name="pwd"></td>
 			</tr>
 			<tr>
 				<td colspan="2">
-				<input type="button" value="목록" onclick="list_go(this.form)" />
-				<input type="button" value="답글" onclick="ans_write(this.form)" /> 
-				<input type="button" value="수정" onclick="update_go(this.form)" /> 
-				<input type="button" value="삭제" onclick="delete_go(this.form)" />
+				<input type="button" value="수정" onclick="update_ok(this.form)" /> 
+				<input type="button" value="목록" onclick="list_go(this.form)" /> 
+				<input type="reset" value="취소" />
+				<input type="hidden" name="cPage" value="${cPage }">
 				</td>
 			</tr>
             </tbody>
