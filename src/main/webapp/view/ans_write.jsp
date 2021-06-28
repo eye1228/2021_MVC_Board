@@ -45,7 +45,7 @@ input{padding: 5px;}
 <body>
 	<h2>Board 댓글</h2>
 	<form  method="post" enctype="multipart/form-data">
-		<table width="700">
+		<table style="width : 700">
 		<tbody>
 			<tr>
 				<th>작성자</th>
